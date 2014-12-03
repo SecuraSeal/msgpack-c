@@ -19,6 +19,7 @@
 #include "msgpack/pack.h"
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #ifndef _MSC_VER
 #include <inttypes.h>
@@ -186,7 +187,7 @@ bool msgpack_object_equal(const msgpack_object x, const msgpack_object y)
 		return x.via.i64 == y.via.i64;
 
 	case MSGPACK_OBJECT_DOUBLE:
-		return x.via.dec == y.via.dec;
+		return fabs(x.via.dec - y.via.dec) < 0.00001;
 
 	case MSGPACK_OBJECT_RAW:
 		return x.via.raw.size == y.via.raw.size &&
